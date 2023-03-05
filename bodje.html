@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bodje</title>
+    <style>
+        html {
+            direction: rtl;
+        }
+
+        body {
+            background-color: aqua;
+        }
+
+        .title-box {
+            text-align: center;
+        }
+
+        .main-box {
+            width: 80%;
+            height: 400px;
+            background-color: white;
+            border-radius: 30px;
+            margin: auto;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .box1 {
+            width: 50%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .box2 {
+            width: 50%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .text-box1 {
+            font-size: 20px;
+            text-align: right;
+        }
+
+        .input-box1 {
+            width: 70%;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .button {
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        .title-box2 {
+            background-color: blueviolet;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+        .title-box3 {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 10px;
+            background-color: brown;
+            color: white;
+        }
+
+        a {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="title-box">برنامه بودجه بندی هفتگی</h1>
+    <div class="main-box">
+        <div class="box1">
+            <h2>...هزینه ها رو اینجا اضافه کن</h2>
+            <p class="text-box1">اسم:</p>
+            <input class="input-box1" type="text" placeholder="مثلا تاکسی یا رستوران" required>
+            <p class="text-box1">قیمت به تومان:</p>
+            <input class="input-box1" type="text" placeholder="مقدار هزینه را وارد کنید" required>
+            <button type="submit" class="button">اضافه کردن</button>
+        </div>
+        <div class="box2">
+            <h2>لیست هزینه ها</h2>
+            <div class="div-box2"></div>
+            <div class="title-box2">بودجه هفتگی شما: <span class="price"></span> تومان</div>
+            <div class="title-box2">باقیمانده:<span class="extant"></span> تومان</div>
+        </div>
+    </div>
+    <script>
+        var bdje = prompt("بودجه خود را وارد کنید")
+        var price = document.querySelector(".price")
+        var extant = document.querySelector(".extant")
+        var button = document.querySelector(".button")
+        var box2 = document.querySelector(".box2")
+        var divbox2 = document.querySelector(".div-box2")
+        price.innerHTML = bdje
+        extant.innerHTML = bdje
+        button.addEventListener("click", function () {
+            var title = document.querySelectorAll(".input-box1")
+
+            var newTitle = title[0].value
+            var newNumber = title[1].value
+            var newDiv = document.createElement("div")
+            var a = document.createElement("a")
+            a.innerHTML = "x"
+
+            newDiv.setAttribute("class", "title-box3")
+            newDiv.innerHTML = newTitle + "-" + newNumber + "تومان"
+            divbox2.appendChild(newDiv)
+            newDiv.appendChild(a)
+            newDiv.style.textAlign = "right"
+            a.style.float = "left"
+            bdje = bdje - newNumber
+            extant.innerHTML = bdje
+            title[0].value = ""
+            title[1].value = ""
+            a.addEventListener("click", function (ev) {
+                ev.target.parentElement.remove()
+                bdje = Number(bdje)  + Number(newNumber)
+                extant.innerHTML = bdje
+            })
+        })
+
+    </script>
+</body>
+
+</html>
